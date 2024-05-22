@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interview with Hennessy</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #fff;
+            color: #000;
+            margin: 0;
+            padding: 20px;
+            overflow-y: auto; /* Ensure scrolling is enabled */
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .portrait {
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+        .portrait img {
+            max-width: 100%;
+            height: auto;
+            border: 5px solid #000;
+        }
+        .text-interview {
+            font-size: 1.2em;
+            line-height: 1; /* Reduced line height */
+            margin-bottom: 5px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #000;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .typing {
+            white-space: pre-wrap; /* Allow line breaks */
+            overflow: hidden;
+            display: inline-block; /* Ensure inline display */
+        }
+        .typing::after {
+            content: '|';
+            animation: blink 0.7s steps(1) infinite;
+        }
+        @keyframes blink {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Interview with Hennessy</h1>
+        <div class="portrait">
+            <img src="./pics/hennessy.jpeg" alt="Portrait of Hennessy">
+        </div>
+        <div class="text-interview">
+            <p id="line1" class="typing"></p>
+            <p id="line2" class="typing" style="display: none;"></p>
+            <p id="line3" class="typing" style="display: none;"></p>
+            <p id="line4" class="typing" style="display: none;"></p>
+            <p id="line5" class="typing" style="display: none;"></p>
+            <p id="line6" class="typing" style="display: none;"></p>
+            <p id="line7" class="typing" style="display: none;"></p>
+            <p id="line8" class="typing" style="display: none;"></p>
+        </div>
+        <a href="index.html" class="back-link">Back</a>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const lines = [
+                "Q: How would your life be different if you never met Mason?",
+                "Justin: I don't want to even think about how much worse things would be. When I got to Stanford I was a very lost person, and to make matters worse it felt like the environment was only making me sink deeper into my problems. Mason has been my rock; he's helped me find my values and live the life I want, and not just the life others expect of me.",
+                "Q: What makes him so special?",
+                "Justin: He has a definitionally unique matrix of the best personality traits possible. His thoughtfulness, reasoning, and simple care for others are all off the charts. I can only name a few people within his stratosphere in the areas of raw prodigious talent and groundedness.",
+                "Q: What would you tell him if he was in a time of personal turmoil?",
+                "Justin: Mason is one of those guys you could honestly bet the farm on. If there ever was a case where he was worried about what was happening, I would be sure it would only be because of him losing sight of himself and his abilities. I would remind him of the person I know he is, because that guy doesn't need to worry about anything.",
+                "Q: Any last closing thoughts?",
+                "Justin: Bro, I love you. I really mean it when I tell other people I think I've found the best friend anyone has ever found. All I'm going to do is keep making you proud."
+            ];
+            const typingSpeed = 15; // Faster typing speed
+            const cursorTimeout = 1000; // Cursor timeout in milliseconds (half as long as before)
+
+            function typeText(line, elementId, callback) {
+                const element = document.getElementById(elementId);
+                let i = 0;
+                function type() {
+                    if (i < line.length) {
+                        element.innerHTML = line.substring(0, i + 1) + '<span class="typing-cursor">|</span>';
+                        i++;
+                        setTimeout(type, typingSpeed);
+                    } else {
+                        element.innerHTML = line; // Remove cursor after typing is done
+                        setTimeout(() => {
+                            const cursor = element.querySelector('.typing-cursor');
+                            if (cursor) cursor.remove(); // Remove the cursor element after a timeout
+                            if (callback) {
+                                setTimeout(callback, 500);
+                            }
+                        }, cursorTimeout);
+                    }
+                }
+                type();
+            }
+
+            typeText(lines[0], "line1", () => {
+                document.getElementById("line2").style.display = "block";
+                typeText(lines[1], "line2", () => {
+                    document.getElementById("line3").style.display = "block";
+                    typeText(lines[2], "line3", () => {
+                        document.getElementById("line4").style.display = "block";
+                        typeText(lines[3], "line4", () => {
+                            document.getElementById("line5").style.display = "block";
+                            typeText(lines[4], "line5", () => {
+                                document.getElementById("line6").style.display = "block";
+                                typeText(lines[5], "line6", () => {
+                                    document.getElementById("line7").style.display = "block";
+                                    typeText(lines[6], "line7", () => {
+                                        document.getElementById("line8").style.display = "block";
+                                        typeText(lines[7], "line8");
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

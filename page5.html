@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nika Note</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #fff;
+            color: #000;
+            margin: 0;
+            padding: 20px;
+            overflow-y: auto; /* Ensure scrolling is enabled */
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .portrait {
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+        .portrait img {
+            max-width: 100%;
+            height: auto;
+            border: 5px solid #000;
+        }
+        .text-interview {
+            font-size: 1.2em;
+            line-height: 1; /* Reduced line height */
+            margin-bottom: 5px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #000;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .typing {
+            white-space: pre-wrap; /* Allow line breaks */
+            overflow: hidden;
+            display: inline-block; /* Ensure inline display */
+            margin: 0;
+            padding: 0;
+        }
+        .typing::after {
+            content: '|';
+            animation: blink 0.7s steps(1) infinite;
+        }
+        @keyframes blink {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Nika Note</h1>
+        <div class="portrait">
+            <img src="./pics/nika.png" alt="Portrait of Nika">
+        </div>
+        <div class="text-interview">
+            <p id="line1" class="typing" style="margin-bottom: 0; padding-bottom: 0;"></p>
+            <p id="line2" class="typing" style="display: none; margin-bottom: 0; padding-bottom: 0;"></p>
+            <p id="line3" class="typing" style="display: none; margin-bottom: 20px; padding-bottom: 0;"></p>
+            <p id="line4" class="typing" style="display: none; margin-bottom: 20px; padding-bottom: 0;"></p>
+            <p id="line5" class="typing" style="display: none; margin-bottom: 20px; padding-bottom: 0;"></p>
+            <p id="line6" class="typing" style="display: none; margin-bottom: 0; padding-bottom: 0;"></p>
+            <p id="line7" class="typing" style="display: none; margin-bottom: 0; padding-bottom: 0;"></p>
+            <p id="line8" class="typing" style="display: none; margin-bottom: 20px; padding-bottom: 0;"></p>
+        </div>
+        <a href="index.html" class="back-link">Back</a>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const lines = [
+                "Branner Hall, from the desk of President Nika Farokzhad",
+                "Tuesday May 21st",
+                "3:55 PM",
+                "Classified Memo: ATTN Mason Wang",
+                "Mason – It feels like a serendipitous stroke of luck that I found you last year. Of all the faces and identities on Instagram, what a privilege it was so have stumbled upon you. Knowing you has made me a better person, and I feel so grateful to have you in my life. I appreciate and admire you for so many reasons: your values-driven approach to life, your strong sense of self, your unwavering loyalty to those around you, your kindness, and your commitment, tenacity, and diligence. There is so much we can learn from you, and everyone who meets you is better off because of it. Thank you for giving me friendship at a time in my life where everything felt so uncertain: last year into this past summer, Stanford felt like such an intimidating, abstract experience. But knowing that I had found you––someone who I connected with and whose presence I loved so much––made everything feel so much easier. Thank you for being such a close friend of mine, and for getting me in ways that few other people do, from day one. There is so much I have learned from you!!!! Cheers to nearly two years of friendship, and 19 years of your life!",
+                "You are so special",
+                "Love, Nika",
+                "End Archival"
+            ];
+            const typingSpeed = 15; // Faster typing speed
+            const cursorTimeout = 1000; // Cursor timeout in milliseconds (half as long as before)
+
+            function typeText(line, elementId, callback) {
+                const element = document.getElementById(elementId);
+                let i = 0;
+                function type() {
+                    if (i < line.length) {
+                        element.innerHTML = line.substring(0, i + 1) + '<span class="typing-cursor">|</span>';
+                        i++;
+                        setTimeout(type, typingSpeed);
+                    } else {
+                        element.innerHTML = line; // Remove cursor after typing is done
+                        setTimeout(() => {
+                            const cursor = element.querySelector('.typing-cursor');
+                            if (cursor) cursor.remove(); // Remove the cursor element after a timeout
+                            if (callback) {
+                                setTimeout(callback, 500);
+                            }
+                        }, cursorTimeout);
+                    }
+                }
+                type();
+            }
+
+            typeText(lines[0], "line1", () => {
+                document.getElementById("line2").style.display = "block";
+                typeText(lines[1], "line2", () => {
+                    document.getElementById("line3").style.display = "block";
+                    typeText(lines[2], "line3", () => {
+                        document.getElementById("line4").style.display = "block";
+                        typeText(lines[3], "line4", () => {
+                            document.getElementById("line5").style.display = "block";
+                            typeText(lines[4], "line5", () => {
+                                document.getElementById("line6").style.display = "block";
+                                typeText(lines[5], "line6", () => {
+                                    document.getElementById("line7").style.display = "block";
+                                    typeText(lines[6], "line7", () => {
+                                        document.getElementById("line8").style.display = "block";
+                                        typeText(lines[7], "line8");
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
