@@ -90,12 +90,24 @@
             align-items: center;
             height: 100vh;
             transition: opacity 2s ease-in-out;
+            padding: 20px; /* Add padding for better readability on small screens */
         }
 
         .typing {
             border-right: 0.1em solid black;
-            white-space: nowrap;
+            white-space: pre-wrap; /* Allow text to wrap */
             overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-item {
+                flex: 1 1 100%; /* Make each gallery item take full width on small screens */
+                max-width: 100%;
+            }
+
+            .intro-text {
+                font-size: 1.5em; /* Reduce font size for better readability on small screens */
+            }
         }
     </style>
 </head>
