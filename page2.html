@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tina Letter</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #fff;
+            color: #000;
+            margin: 0;
+            padding: 20px;
+            overflow-y: auto; /* Ensure scrolling is enabled */
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .portrait {
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+        .portrait img {
+            max-width: 100%;
+            height: auto;
+            border: 5px solid #000;
+        }
+        .text-interview {
+            font-size: 1.2em;
+            line-height: 1; /* Reduced line height */
+            margin-bottom: 5px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #000;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .typing {
+            white-space: pre-wrap; /* Allow line breaks */
+            overflow: hidden;
+            display: inline-block; /* Ensure inline display */
+            margin: 0;
+            padding: 0;
+        }
+        .typing::after {
+            content: '|';
+            animation: blink 0.7s steps(1) infinite;
+        }
+        @keyframes blink {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Tina Letter</h1>
+        <div class="portrait">
+            <img src="./pics/tinasilly.png" alt="Portrait of Nika">
+        </div>
+        <div class="text-interview">
+            <p id="line1" class="typing" style="margin-bottom: 0; padding-bottom: 0;"></p>
+            <p id="line2" class="typing" style="display: none; margin-bottom: 0; padding-bottom: 0;"></p>
+            <p id="line3" class="typing" style="display: none; margin-bottom: 20px; padding-bottom: 0;"></p>
+            <p id="line4" class="typing" style="display: none; margin-bottom: 20px; padding-bottom: 0;"></p>
+            <p id="line5" class="typing" style="display: none; margin-bottom: 20px; padding-bottom: 0;"></p>
+            <p id="line6" class="typing" style="display: none; margin-bottom: 0; padding-bottom: 0;"></p>
+            <p id="line7" class="typing" style="display: none; margin-bottom: 0; padding-bottom: 0;"></p>
+            <p id="line8" class="typing" style="display: none; margin-bottom: 20px; padding-bottom: 0;"></p>
+        </div>
+        <a href="index.html" class="back-link">Back</a>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const lines = [
+                "~/Desktop/FishTank git:(main) (45.113s)",
+                "npm install tuna",
+                "npm run dev",
+                "Mason jar!!!",
+                "A bottle of Hennessy liquor has reached out to me in this fish tank to write you a very cool note (he says you’re…..turning 19? I didn’t realize jars did that). Normally I only send you notes through carrier pigeon, but npm packages work too. Its hard for me to write on how special you are to me because, well, it would take years of me saying it to even begin doing it justice. Thank you for always rivaling me in my silliness, and loving Ted Chiang short stories, and saying HELL YEAH, and sending wonky song collections that won’t make me miss Saratoga (although I still do), and planning hall of fame dates, and appreciating my github commits (plus responding to the hidden messages), and talking about moon shadows, and most of all, always, always balling out. Uhhh I mean being a good boyfriend. And loving me. And all the good stuff :) Anyway. I could write a 1,000,001 more line about how special you are, but one, this npm package would just be too big for Hennessy’s website, and two, I would rather give you a hug in-person because I miss you. Amal El-Mohtar wrote a science fiction novel I read years ago called “This is How You Lose the Time War”. In it, two agents on different sides of a multiverse war leave each other letters between strands of time, and there’s a line in one that says: I love you, and I love you, and I want to find out what that means together. I cant wait to see you for your birthday and to go out to dinner and drive along the coast and play Were Not Really Strangers. One day this will be every day; and until then Ill rack up airline miles and get really, really good at packing.",
+                "Tina  <º)))><",
+                "✓ Ready in 1305ms",
+                "✓ Compiled / in 2.2s (2180 modules) Compiled in 254ms (2180 modules)"
+            ];
+            const typingSpeed = 10; // Faster typing speed
+            const cursorTimeout = 750; // Cursor timeout in milliseconds (half as long as before)
+
+            function typeText(line, elementId, callback) {
+                const element = document.getElementById(elementId);
+                let i = 0;
+                function type() {
+                    if (i < line.length) {
+                        element.innerHTML = line.substring(0, i + 1) + '<span class="typing-cursor">|</span>';
+                        i++;
+                        setTimeout(type, typingSpeed);
+                    } else {
+                        element.innerHTML = line; // Remove cursor after typing is done
+                        setTimeout(() => {
+                            const cursor = element.querySelector('.typing-cursor');
+                            if (cursor) cursor.remove(); // Remove the cursor element after a timeout
+                            if (callback) {
+                                setTimeout(callback, 500);
+                            }
+                        }, cursorTimeout);
+                    }
+                }
+                type();
+            }
+
+            typeText(lines[0], "line1", () => {
+                document.getElementById("line2").style.display = "block";
+                typeText(lines[1], "line2", () => {
+                    document.getElementById("line3").style.display = "block";
+                    typeText(lines[2], "line3", () => {
+                        document.getElementById("line4").style.display = "block";
+                        typeText(lines[3], "line4", () => {
+                            document.getElementById("line5").style.display = "block";
+                            typeText(lines[4], "line5", () => {
+                                document.getElementById("line6").style.display = "block";
+                                typeText(lines[5], "line6", () => {
+                                    document.getElementById("line7").style.display = "block";
+                                    typeText(lines[6], "line7", () => {
+                                        document.getElementById("line8").style.display = "block";
+                                        typeText(lines[7], "line8");
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

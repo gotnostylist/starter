@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interview with Charlie</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #fff;
+            color: #000;
+            margin: 0;
+            padding: 20px;
+            overflow-y: auto; /* Ensure scrolling is enabled */
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .portrait {
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+        .portrait img {
+            max-width: 100%;
+            height: auto;
+            border: 5px solid #000;
+        }
+        .text-interview {
+            font-size: 1.2em;
+            line-height: 1; /* Reduced line height */
+            margin-bottom: 5px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #000;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .typing {
+            white-space: pre-wrap; /* Allow line breaks */
+            overflow: hidden;
+            display: inline-block; /* Ensure inline display */
+        }
+        .typing::after {
+            content: '|';
+            animation: blink 0.7s steps(1) infinite;
+        }
+        @keyframes blink {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Interview with Charles</h1>
+        <div class="portrait">
+            <img src="./pics/charlie.png" alt="Portrait of Hennessy">
+        </div>
+        <div class="text-interview">
+            <p id="line1" class="typing"></p>
+            <p id="line2" class="typing" style="display: none;"></p>
+            <p id="line3" class="typing" style="display: none;"></p>
+            <p id="line4" class="typing" style="display: none;"></p>
+            <p id="line5" class="typing" style="display: none;"></p>
+            <p id="line6" class="typing" style="display: none;"></p>
+            <p id="line7" class="typing" style="display: none;"></p>
+            <p id="line8" class="typing" style="display: none;"></p>
+        </div>
+        <a href="index.html" class="back-link">Back</a>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const lines = [
+                "Q: what’s your favorite memory with mason?",
+                "Charlie: I was shumlped coming back from green library one cold night when I bumped into Justin and his friend Mason. tryna go to the melt? ended up being a spontaneous night of laughter and stupid shittery. could not have asked for two better people to go grab grub on a random weekday.",
+                "Q: What's your favorite thing about him?",
+                "Charlie: although our interactions may be brief, I can feel how down to earth he is and how big of an ambitious dawg he is. just know he’s gonna thrive at stanford and can’t wait to have him.",
+                "Interviewers Note:",
+                "Charlie then left to be molested at Kappa Sigma"
+            ];
+            const typingSpeed = 15; // Faster typing speed
+            const cursorTimeout = 1000; // Cursor timeout in milliseconds (half as long as before)
+
+            function typeText(line, elementId, callback) {
+                const element = document.getElementById(elementId);
+                let i = 0;
+                function type() {
+                    if (i < line.length) {
+                        element.innerHTML = line.substring(0, i + 1) + '<span class="typing-cursor">|</span>';
+                        i++;
+                        setTimeout(type, typingSpeed);
+                    } else {
+                        element.innerHTML = line; // Remove cursor after typing is done
+                        setTimeout(() => {
+                            const cursor = element.querySelector('.typing-cursor');
+                            if (cursor) cursor.remove(); // Remove the cursor element after a timeout
+                            if (callback) {
+                                setTimeout(callback, 500);
+                            }
+                        }, cursorTimeout);
+                    }
+                }
+                type();
+            }
+
+            typeText(lines[0], "line1", () => {
+                document.getElementById("line2").style.display = "block";
+                typeText(lines[1], "line2", () => {
+                    document.getElementById("line3").style.display = "block";
+                    typeText(lines[2], "line3", () => {
+                        document.getElementById("line4").style.display = "block";
+                        typeText(lines[3], "line4", () => {
+                            document.getElementById("line5").style.display = "block";
+                            typeText(lines[4], "line5", () => {
+                                document.getElementById("line6").style.display = "block";
+                                typeText(lines[5], "line6", () => {
+                                    document.getElementById("line7").style.display = "block";
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
