@@ -55,8 +55,8 @@
             overflow: hidden;
             display: inline-block; /* Ensure inline display */
         }
-        .typing::after {
-            content: '|';
+        .typing-cursor {
+            display: inline-block;
             animation: blink 0.7s steps(1) infinite;
         }
         @keyframes blink {
@@ -83,7 +83,6 @@
             <p id="line5" class="typing" style="display: none;"></p>
             <p id="line6" class="typing" style="display: none;"></p>
             <p id="line7" class="typing" style="display: none;"></p>
-            <p id="line8" class="typing" style="display: none;"></p>
         </div>
         <a href="index.html" class="back-link">Back</a>
     </div>
@@ -94,7 +93,7 @@
                 "Q: What makes your friendship with Mason so special and meaningful?",
                 "Mayson:  It’s crazy that I’ve known Mason for two-thirds of my life now. When I look back on our friendship, it has transformed from being a second-grade Bronsexual duo to someone I can always go to for meaningful and honest advice. I realized that what’s made our friendship so meaningful are the struggles and adversity we faced together. Whether it was our 6 AM treadmill sprints or getting caught plagiarizing in APUSH, we endured it together. It made the successes and triumphs all that much more meaningful. And when I think about how Mason has made an impact on my life, the first thing I can think of is his willingness to continuously push me to be the best version of myself. When I have self-doubt or am clearly not locked in, Mason never fails to give it to me straight, even if it is brutally honest. His work ethic and moral compass is something I try to emulate everyday, and it has inspired a higher standard of living for myself. Mason, like I’ve said before, I’d rather spend the worst moments with you than the best moments with someone else (Tina saved this line, you’re welcome).",
                 "Q: What is your proudest moment of Mason?",
-                "Mayson: Mason is one of the hardest working people I know. However, I first-handedly saw how his workaholic mindset oftentimes consumed his life, leaving him with little to no room for other experiences. I remember discussing this with Mason throughout high school, reminding him to find a balance between work and fun. After all, we are young and only live once. This past year, I’ve seen Mason find that balance, from juggling a new startup as a high school graduate to exploring the world and finding a career goal he is truly passionate about. I’ve never seen him happier. And to know that he has found this balance without jeopardizing his education and career goals makes me extremely proud of him. Mason, I hope this year has opened up your eyes to the endless possibilities of fulfillment, joy, and experience you can achieve. ",
+                "Mayson: Mason is one of the hardest working people I know. However, I first-handedly saw how his workaholic mindset oftentimes consumed his life, leaving him with little to no room for other experiences. I remember discussing this with Mason throughout high school, reminding him to find a balance between work and fun. After all, we are young and only live once. This past year, I’ve seen Mason find that balance, from juggling a new startup as a high school graduate to exploring the world and finding a career goal he is truly passionate about. I’ve never seen him happier. And to know that he has found this balance without jeopardizing his education and career goals makes me extremely proud of him. Mason, I hope this year has opened up your eyes to the endless possibilities of fulfillment, joy, and experience you can achieve.",
                 "Q: Share an embarrassing story of Mason.",
                 "Mayson: Welp, I was gonna save this for his wedding’s best man speech, but I guess I’ll find a different one for that. His most embarrassing moment in life is when his career got ended by Mr. Sheehy in 10th grade World History. I don’t think I need to elaborate further."
             ];
@@ -110,14 +109,18 @@
                         i++;
                         setTimeout(type, typingSpeed);
                     } else {
-                        element.innerHTML = line; // Remove cursor after typing is done
-                        setTimeout(() => {
-                            const cursor = element.querySelector('.typing-cursor');
-                            if (cursor) cursor.remove(); // Remove the cursor element after a timeout
-                            if (callback) {
-                                setTimeout(callback, 500);
-                            }
-                        }, cursorTimeout);
+                        if (elementId === "line7") {
+                            element.innerHTML = line + '<span class="typing-cursor">|</span>'; // Keep the cursor for the last line
+                        } else {
+                            element.innerHTML = line; // Remove cursor after typing is done
+                            setTimeout(() => {
+                                const cursor = element.querySelector('.typing-cursor');
+                                if (cursor) cursor.remove(); // Remove the cursor element after a timeout
+                                if (callback) {
+                                    setTimeout(callback, 500);
+                                }
+                            }, cursorTimeout);
+                        }
                     }
                 }
                 type();
@@ -135,6 +138,7 @@
                                 document.getElementById("line6").style.display = "block";
                                 typeText(lines[5], "line6", () => {
                                     document.getElementById("line7").style.display = "block";
+                                    typeText(lines[6], "line7");
                                 });
                             });
                         });

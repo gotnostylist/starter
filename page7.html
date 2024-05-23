@@ -57,8 +57,8 @@
             margin: 0;
             padding: 0;
         }
-        .typing::after {
-            content: '|';
+        .typing-cursor {
+            display: inline-block;
             animation: blink 0.7s steps(1) infinite;
         }
         @keyframes blink {
@@ -78,8 +78,8 @@
             <img src="./pics/rohan.png" alt="Portrait of Rohan">
         </div>
         <div class="text-interview">
-            <p id="line1" class="typing" style="margin-bottom: 10; padding-bottom: 0;"></p>
-            <p id="line2" class="typing" style="display: none; margin-bottom: 20; padding-bottom: 0;"></p>
+            <p id="line1" class="typing" style="margin-bottom: 10px; padding-bottom: 0;"></p>
+            <p id="line2" class="typing" style="display: none; margin-bottom: 20px; padding-bottom: 0;"></p>
             <p id="line3" class="typing" style="display: none; margin-bottom: 0px; padding-bottom: 0;"></p>
         </div>
         <a href="index.html" class="back-link">Back</a>
@@ -104,14 +104,18 @@
                         i++;
                         setTimeout(type, typingSpeed);
                     } else {
-                        element.innerHTML = line; // Remove cursor after typing is done
-                        setTimeout(() => {
-                            const cursor = element.querySelector('.typing-cursor');
-                            if (cursor) cursor.remove(); // Remove the cursor element after a timeout
-                            if (callback) {
-                                setTimeout(callback, 500);
-                            }
-                        }, cursorTimeout);
+                        if (elementId === "line3") {
+                            element.innerHTML = line + '<span class="typing-cursor">|</span>'; // Keep the cursor for the last line
+                        } else {
+                            element.innerHTML = line; // Remove cursor after typing is done
+                            setTimeout(() => {
+                                const cursor = element.querySelector('.typing-cursor');
+                                if (cursor) cursor.remove(); // Remove the cursor element after a timeout
+                                if (callback) {
+                                    setTimeout(callback, 500);
+                                }
+                            }, cursorTimeout);
+                        }
                     }
                 }
                 type();

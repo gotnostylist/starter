@@ -57,8 +57,8 @@
             margin: 0;
             padding: 0;
         }
-        .typing::after {
-            content: '|';
+        .typing-cursor {
+            display: inline-block;
             animation: blink 0.7s steps(1) infinite;
         }
         @keyframes blink {
@@ -114,14 +114,18 @@
                         i++;
                         setTimeout(type, typingSpeed);
                     } else {
-                        element.innerHTML = line; // Remove cursor after typing is done
-                        setTimeout(() => {
-                            const cursor = element.querySelector('.typing-cursor');
-                            if (cursor) cursor.remove(); // Remove the cursor element after a timeout
-                            if (callback) {
-                                setTimeout(callback, 500);
-                            }
-                        }, cursorTimeout);
+                        if (elementId === "line8") {
+                            element.innerHTML = line + '<span class="typing-cursor">|</span>'; // Keep the cursor for the last line
+                        } else {
+                            element.innerHTML = line; // Remove cursor after typing is done
+                            setTimeout(() => {
+                                const cursor = element.querySelector('.typing-cursor');
+                                if (cursor) cursor.remove(); // Remove the cursor element after a timeout
+                                if (callback) {
+                                    setTimeout(callback, 500);
+                                }
+                            }, cursorTimeout);
+                        }
                     }
                 }
                 type();

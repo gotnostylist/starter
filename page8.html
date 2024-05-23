@@ -55,8 +55,8 @@
             overflow: hidden;
             display: inline-block; /* Ensure inline display */
         }
-        .typing::after {
-            content: '|';
+        .typing-cursor {
+            display: inline-block;
             animation: blink 0.7s steps(1) infinite;
         }
         @keyframes blink {
@@ -71,9 +71,9 @@
 </head>
 <body>
     <div class="content">
-        <h1>Interview with Charles</h1>
+        <h1>Interview with Charlie</h1>
         <div class="portrait">
-            <img src="./pics/charlie.png" alt="Portrait of Hennessy">
+            <img src="./pics/charlie.png" alt="Portrait of Charlie">
         </div>
         <div class="text-interview">
             <p id="line1" class="typing"></p>
@@ -83,7 +83,6 @@
             <p id="line5" class="typing" style="display: none;"></p>
             <p id="line6" class="typing" style="display: none;"></p>
             <p id="line7" class="typing" style="display: none;"></p>
-            <p id="line8" class="typing" style="display: none;"></p>
         </div>
         <a href="index.html" class="back-link">Back</a>
     </div>
@@ -110,14 +109,18 @@
                         i++;
                         setTimeout(type, typingSpeed);
                     } else {
-                        element.innerHTML = line; // Remove cursor after typing is done
-                        setTimeout(() => {
-                            const cursor = element.querySelector('.typing-cursor');
-                            if (cursor) cursor.remove(); // Remove the cursor element after a timeout
-                            if (callback) {
-                                setTimeout(callback, 500);
-                            }
-                        }, cursorTimeout);
+                        if (elementId === "line6") {
+                            element.innerHTML = line + '<span class="typing-cursor">|</span>'; // Keep the cursor for the last line
+                        } else {
+                            element.innerHTML = line; // Remove cursor after typing is done
+                            setTimeout(() => {
+                                const cursor = element.querySelector('.typing-cursor');
+                                if (cursor) cursor.remove(); // Remove the cursor element after a timeout
+                                if (callback) {
+                                    setTimeout(callback, 500);
+                                }
+                            }, cursorTimeout);
+                        }
                     }
                 }
                 type();
@@ -135,6 +138,7 @@
                                 document.getElementById("line6").style.display = "block";
                                 typeText(lines[5], "line6", () => {
                                     document.getElementById("line7").style.display = "block";
+                                    typeText(lines[6], "line7");
                                 });
                             });
                         });
