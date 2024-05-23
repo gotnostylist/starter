@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interview with Mayson Yu</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #fff;
+            color: #000;
+            margin: 0;
+            padding: 20px;
+            overflow-y: auto; /* Ensure scrolling is enabled */
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .portrait {
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+        .portrait img {
+            max-width: 100%;
+            height: auto;
+            border: 5px solid #000;
+        }
+        .text-interview {
+            font-size: 1.2em;
+            line-height: 1; /* Reduced line height */
+            margin-bottom: 5px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #000;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .typing {
+            white-space: pre-wrap; /* Allow line breaks */
+            overflow: hidden;
+            display: inline-block; /* Ensure inline display */
+        }
+        .typing::after {
+            content: '|';
+            animation: blink 0.7s steps(1) infinite;
+        }
+        @keyframes blink {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Interview with Mayson Yu</h1>
+        <div class="portrait">
+            <img src="./pics/mayu.png" alt="Portrait of Mayson Yu">
+        </div>
+        <div class="text-interview">
+            <p id="line1" class="typing"></p>
+            <p id="line2" class="typing" style="display: none;"></p>
+            <p id="line3" class="typing" style="display: none;"></p>
+            <p id="line4" class="typing" style="display: none;"></p>
+            <p id="line5" class="typing" style="display: none;"></p>
+            <p id="line6" class="typing" style="display: none;"></p>
+            <p id="line7" class="typing" style="display: none;"></p>
+            <p id="line8" class="typing" style="display: none;"></p>
+        </div>
+        <a href="index.html" class="back-link">Back</a>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const lines = [
+                "Q: What makes your friendship with Mason so special and meaningful?",
+                "Mayson:  It’s crazy that I’ve known Mason for two-thirds of my life now. When I look back on our friendship, it has transformed from being a second-grade Bronsexual duo to someone I can always go to for meaningful and honest advice. I realized that what’s made our friendship so meaningful are the struggles and adversity we faced together. Whether it was our 6 AM treadmill sprints or getting caught plagiarizing in APUSH, we endured it together. It made the successes and triumphs all that much more meaningful. And when I think about how Mason has made an impact on my life, the first thing I can think of is his willingness to continuously push me to be the best version of myself. When I have self-doubt or am clearly not locked in, Mason never fails to give it to me straight, even if it is brutally honest. His work ethic and moral compass is something I try to emulate everyday, and it has inspired a higher standard of living for myself. Mason, like I’ve said before, I’d rather spend the worst moments with you than the best moments with someone else (Tina saved this line, you’re welcome).",
+                "Q: What is your proudest moment of Mason?",
+                "Mayson: Mason is one of the hardest working people I know. However, I first-handedly saw how his workaholic mindset oftentimes consumed his life, leaving him with little to no room for other experiences. I remember discussing this with Mason throughout high school, reminding him to find a balance between work and fun. After all, we are young and only live once. This past year, I’ve seen Mason find that balance, from juggling a new startup as a high school graduate to exploring the world and finding a career goal he is truly passionate about. I’ve never seen him happier. And to know that he has found this balance without jeopardizing his education and career goals makes me extremely proud of him. Mason, I hope this year has opened up your eyes to the endless possibilities of fulfillment, joy, and experience you can achieve. ",
+                "Q: Share an embarrassing story of Mason.",
+                "Mayson: Welp, I was gonna save this for his wedding’s best man speech, but I guess I’ll find a different one for that. His most embarrassing moment in life is when his career got ended by Mr. Sheehy in 10th grade World History. I don’t think I need to elaborate further."
+            ];
+            const typingSpeed = 9; // Faster typing speed
+            const cursorTimeout = 1000; // Cursor timeout in milliseconds (half as long as before)
+
+            function typeText(line, elementId, callback) {
+                const element = document.getElementById(elementId);
+                let i = 0;
+                function type() {
+                    if (i < line.length) {
+                        element.innerHTML = line.substring(0, i + 1) + '<span class="typing-cursor">|</span>';
+                        i++;
+                        setTimeout(type, typingSpeed);
+                    } else {
+                        element.innerHTML = line; // Remove cursor after typing is done
+                        setTimeout(() => {
+                            const cursor = element.querySelector('.typing-cursor');
+                            if (cursor) cursor.remove(); // Remove the cursor element after a timeout
+                            if (callback) {
+                                setTimeout(callback, 500);
+                            }
+                        }, cursorTimeout);
+                    }
+                }
+                type();
+            }
+
+            typeText(lines[0], "line1", () => {
+                document.getElementById("line2").style.display = "block";
+                typeText(lines[1], "line2", () => {
+                    document.getElementById("line3").style.display = "block";
+                    typeText(lines[2], "line3", () => {
+                        document.getElementById("line4").style.display = "block";
+                        typeText(lines[3], "line4", () => {
+                            document.getElementById("line5").style.display = "block";
+                            typeText(lines[4], "line5", () => {
+                                document.getElementById("line6").style.display = "block";
+                                typeText(lines[5], "line6", () => {
+                                    document.getElementById("line7").style.display = "block";
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
