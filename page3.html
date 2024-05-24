@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>V Keeps It Brief </title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #fff;
+            color: #000;
+            margin: 0;
+            padding: 20px;
+            overflow-y: auto; /* Ensure scrolling is enabled */
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .portrait {
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+        .portrait img {
+            max-width: 100%;
+            height: auto;
+            border: 5px solid #000;
+        }
+        .text-interview {
+            font-size: 1.2em;
+            line-height: 1; /* Reduced line height */
+            margin-bottom: 5px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #000;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .typing {
+            white-space: pre-wrap; /* Allow line breaks */
+            overflow: hidden;
+            display: inline-block; /* Ensure inline display */
+            margin: 0;
+            padding: 0;
+        }
+        .typing-cursor {
+            display: inline-block;
+            animation: blink 0.7s steps(1) infinite;
+        }
+        @keyframes blink {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>V Keeps It Brief</h1>
+        <div class="portrait">
+            <img src="./pics/vedant.png" alt="Portrait of Vedant and Mason">
+        </div>
+        <div class="text-interview">
+            <p id="line1" class="typing" style="margin-bottom: 10px; padding: 0;"></p>
+            <p id="line2" class="typing" style="display: none; margin-bottom: 10px; padding: 0;"></p>
+            <p id="line3" class="typing" style="display: none; margin-bottom: 10px; padding: 0;"></p>
+        </div>
+        <a href="index.html" class="back-link">Back</a>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const lines = [
+                "Mason,",
+                "There’s a lot of soppy stuff on this website already, so I’m not gonna add to it cuz your head could balloon up. If you going through anything, you already know what to do. Don’t deep it and just give me a call mas.",
+                "Love you bro, V"
+            ];
+            const typingSpeed = 15; // Faster typing speed
+            const cursorTimeout = 1500; // Cursor timeout in milliseconds (half as long as before)
+
+            function typeText(line, elementId, callback) {
+                const element = document.getElementById(elementId);
+                let i = 0;
+                function type() {
+                    if (i < line.length) {
+                        element.innerHTML = line.substring(0, i + 1) + '<span class="typing-cursor">|</span>';
+                        i++;
+                        setTimeout(type, typingSpeed);
+                    } else {
+                        if (elementId === "line3") {
+                            element.innerHTML = line + '<span class="typing-cursor">|</span>'; // Keep the cursor for the last line
+                        } else {
+                            element.innerHTML = line; // Remove cursor after typing is done
+                            setTimeout(() => {
+                                const cursor = element.querySelector('.typing-cursor');
+                                if (cursor) cursor.remove(); // Remove the cursor element after a timeout
+                                if (callback) {
+                                    setTimeout(callback, 500);
+                                }
+                            }, cursorTimeout);
+                        }
+                    }
+                }
+                type();
+            }
+
+            typeText(lines[0], "line1", () => {
+                document.getElementById("line2").style.display = "block";
+                typeText(lines[1], "line2", () => {
+                    document.getElementById("line3").style.display = "block";
+                    typeText(lines[2], "line3");
+                });
+            });
+        });
+    </script>
+</body>
+</html>
